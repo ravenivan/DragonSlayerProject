@@ -1,16 +1,23 @@
 public class Room {
 
-    private int level;
+
+    private Dragon[] dragons;
     private boolean searched;
     private boolean hasHealthPot;
 
     public Room() {
-        level = (int) (Math.random() * 3) + 1;
         searched = false;
-        if ((int) (Math.random() * 2) == 1) {
-            hasHealthPot = true;
-        } else {
-            hasHealthPot = false;
+        hasHealthPot = (int) (Math.random() * 2) == 1;
+        dragons = new Dragon[3];
+        for (int i = 0; i < 3; i++) {
+            Dragon dragon = new Dragon();
+            dragons[i] = dragon;
         }
     }
+
+    public Dragon[] getDragons() {
+        return dragons;
+    }
+
+
 }
