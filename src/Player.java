@@ -5,6 +5,8 @@ public class Player {
     private boolean healthPot;
     private String name;
 
+    private boolean dead;
+
 
     public Player(String name) {
         health = 100;
@@ -12,6 +14,7 @@ public class Player {
         healthPot = false;
         gold = 0;
         this.name = name;
+        dead = false;
     }
 
     public int damageAmount() {
@@ -40,6 +43,12 @@ public class Player {
             System.out.println("You used the health pot!");
         } else {
             System.out.println("You have no health pot to use.");
+        }
+    }
+
+    public void checkDead() {
+        if (health <= 0) {
+            dead = true;
         }
     }
 

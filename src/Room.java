@@ -1,9 +1,15 @@
 public class Room {
 
 
+    public static int currentRoom = 1;
+
     private Dragon[] dragons;
     private boolean searched;
     private boolean hasHealthPot;
+
+    private boolean roomCleared;
+
+    private int dragonCount = 0;
 
     public Room() {
         searched = false;
@@ -13,10 +19,23 @@ public class Room {
             Dragon dragon = new Dragon();
             dragons[i] = dragon;
         }
+        roomCleared = false;
     }
 
     public Dragon[] getDragons() {
         return dragons;
+    }
+
+    public void checkRoomClear() {
+        if (dragons[2].isSlain()) {
+            roomCleared = true;
+            currentRoom++;
+            dragonCount++;
+        }
+    }
+
+    public int getDragonCount() {
+        return dragonCount;
     }
 
 

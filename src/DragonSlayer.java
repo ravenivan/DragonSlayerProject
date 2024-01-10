@@ -7,6 +7,7 @@ public class DragonSlayer {
     private Player player;
     private Room[] rooms;
 
+
     public DragonSlayer() {
         sc = new Scanner(System.in);
         rooms = new Room[5];
@@ -30,7 +31,21 @@ public class DragonSlayer {
     }
 
     public void enteringRoom() {
+        System.out.println("Entering room " + (Room.currentRoom + 1) + " . . .");
+    }
 
+    public void playerOption() {
+        System.out.println("Do you want to: ");
+        System.out.println("(1) Attack the dragon");
+        System.out.println("(2) Use a health potion");
+        String option = sc.nextLine();
+        switch (option) {
+            case 1:
+                player.attackDragon(rooms[Room.currentRoom].getDragons()[rooms[Room.currentRoom].getDragonCount()]);
+                break;
+            case 2:
+
+        }
     }
 
 
