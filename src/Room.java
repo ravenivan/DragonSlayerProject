@@ -26,6 +26,16 @@ public class Room {
         return dragons;
     }
 
+    public Dragon getCurrentDragon() {
+        if (!dragons[0].isSlain()) {
+            return dragons[0];
+        } else if (!dragons[1].isSlain()) {
+            return dragons[1];
+        } else {
+            return dragons[2];
+        }
+    }
+
     public void checkRoomClear() {
         if (dragons[2].isSlain()) {
             roomCleared = true;

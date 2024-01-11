@@ -58,4 +58,9 @@ public class Dragon {
         levelThreeDragonChance += 15;
     }
 
+    public void dragonStatus() {
+        String status = "Dragon health: " + health;
+        status += "\nDragon level: " + level;
+    }
+
 }

@@ -19,6 +19,7 @@ public class DragonSlayer {
 
     public void play() {
         welcomePlayer();
+        enteringRoom();
     }
 
     public void welcomePlayer() {
@@ -31,21 +32,60 @@ public class DragonSlayer {
     }
 
     public void enteringRoom() {
-        System.out.println("Entering room " + (Room.currentRoom + 1) + " . . .");
+        System.out.println("Entering room " + (Room.currentRoom) + " . . .");
+        System.out.println("A dragon has spawned. ");
+
+
     }
 
-    public void playerOption() {
-        System.out.println("Do you want to: ");
-        System.out.println("(1) Attack the dragon");
-        System.out.println("(2) Use a health potion");
-        String option = sc.nextLine();
-        switch (option) {
-            case 1:
-                player.attackDragon(rooms[Room.currentRoom].getDragons()[rooms[Room.currentRoom].getDragonCount()]);
-                break;
-            case 2:
+    public void playerOption(Room room) {
+        Dragon currentDragon =
+        boolean invalidAnswer = false;
+        String option;
+        do {
+            System.out.println("******************************");
+            System.out.println("Your turn.");
+            System.out.println("Do you want to: ");
+            System.out.println("(1) Attack the dragon");
+            System.out.println("(2) Use a health potion");
+            option = sc.nextLine();
+            if (!option.equals("1") && !option.equals("2")) {
+                invalidAnswer = true;
+                System.out.println("Invalid input.");
+            }
+        } while (invalidAnswer);
 
+
+        switch (option) {
+            // fix this shi
+            case "1":
+                player.attackDragon(rooms[Room.currentRoom - 1].getDragons()[rooms[Room.currentRoom -1 ].getDragonCount()]);
+                break;
+            case "2":
+                player.usePot();
+                break;
         }
+
+
+    }
+
+    public void dragonTurn(Dragon dragon) {
+        int damageToPlayer = dragon.damageToPlayer();
+        System.out.println("Dragon's turn.");
+        System.out.println("The dragon attacks you.");
+        if (player.dodge()) {
+            System.out.println("You dodged the dragon's attack!");
+        } else {
+            System.out.println("The dragon dealt " + damageToPlayer + " to you.");
+            player.dragonAttack(damageToPlayer);
+            player.checkDead();
+        }
+
+        if (player.isDead()) {
+            System.out.println("Game over. You died.");
+            System.exit(0);
+        }
+
     }
 
 

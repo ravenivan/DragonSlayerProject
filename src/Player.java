@@ -17,6 +17,10 @@ public class Player {
         dead = false;
     }
 
+    public boolean isDead() {
+        return dead;
+    }
+
     public int damageAmount() {
         int oneToTen = ((int) (Math.random() * 10) + 1);
         return oneToTen * playerSword.getAttackPower();
@@ -25,15 +29,15 @@ public class Player {
         dragon.damageTaken(damageAmount());
     }
 
-    public void dragonAttack(Dragon dragon) {
-        health -= dragon.damageToPlayer();
+    public void dragonAttack(int damageFromDragon) {
+        health -= damageFromDragon;
     }
 
     public boolean dodge() {
         return ((int) (Math.random() * 100) + 1) <= playerSword.getDodgeRating();
     }
 
-    public void usePot() {
+    public boolean usePot() {
         if (healthPot) {
             health += 50;
             if (health > 100) {
@@ -41,8 +45,10 @@ public class Player {
             }
             healthPot = false;
             System.out.println("You used the health pot!");
+            return true;
         } else {
             System.out.println("You have no health pot to use.");
+            return false;
         }
     }
 
