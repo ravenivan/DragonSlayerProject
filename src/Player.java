@@ -22,11 +22,23 @@ public class Player {
     }
 
     public int damageAmount() {
-        int oneToTen = ((int) (Math.random() * 10) + 1);
-        return oneToTen * playerSword.getAttackPower();
+        int oneToThree = ((int) (Math.random() * 3) + 1);
+        return oneToThree * playerSword.getAttackPower();
+    }
+
+    public void receiveHealthPot() {
+        if (healthPot) {
+            System.out.println("You already have a health pot in your inventory.");
+            System.out.println("The potion you found disappears.");
+        } else {
+            healthPot = true;
+            System.out.println("You now have a health pot in your inventory.");
+        }
     }
     public void attackDragon(Dragon dragon) {
-        dragon.damageTaken(damageAmount());
+        int damageToDragon = damageAmount();
+        System.out.println("You attack the dragon for " + damageToDragon + " damage!");
+        dragon.damageTaken(damageToDragon);
     }
 
     public void dragonAttack(int damageFromDragon) {
@@ -59,10 +71,10 @@ public class Player {
     }
 
     public void playerStatus() {
-        String status = "Your health: " + health;
-        status += "\nHas health pot: " + healthPot;
-        status += "\nYour sword's attack power: " + playerSword.getAttackPower();
-        status += "\nYour sword's dodge rating: " + playerSword.getDodgeRating();
+        System.out.println("Your health: " + health);
+        System.out.println("Has health pot: " + healthPot);
+        System.out.println("Your sword's attack power: " + playerSword.getAttackPower());
+        System.out.println("Your sword's dodge rating: " + playerSword.getDodgeRating());
     }
 
 

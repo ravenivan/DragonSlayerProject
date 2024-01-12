@@ -12,11 +12,14 @@ public class Dragon {
 
     private boolean slain;
 
-    public Dragon() {
+    private Room dragonRoom;
+
+    public Dragon(Room room) {
         health = 100;
         loot = lootPossibility[(int) (Math.random() * 5)];
         slain = false;
         assignLevel();
+        dragonRoom = room;
     }
 
     public boolean isSlain() {
@@ -50,6 +53,7 @@ public class Dragon {
         if (health <= 0) {
             slain = true;
             System.out.println("This dragon has been killed.");
+            dragonRoom.nextDragon();
         }
     }
 
@@ -59,8 +63,8 @@ public class Dragon {
     }
 
     public void dragonStatus() {
-        String status = "Dragon health: " + health;
-        status += "\nDragon level: " + level;
+        System.out.println("Dragon health: " + health);
+        System.out.println("Dragon level: " + level);
     }
 
 }

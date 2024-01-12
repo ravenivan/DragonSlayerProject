@@ -7,6 +7,10 @@ public class DragonSlayer {
     private Player player;
     private Room[] rooms;
 
+    private int currentRoom;
+
+    private Dragon currentDragon;
+
 
     public DragonSlayer() {
         sc = new Scanner(System.in);
@@ -15,6 +19,8 @@ public class DragonSlayer {
             Room newRoom = new Room();
             rooms[i] = newRoom;
         }
+        currentRoom = 0;
+        currentDragon = rooms[currentRoom].getCurrentDragon(); // returns current dragon fighting
     }
 
     public void play() {
@@ -32,14 +38,21 @@ public class DragonSlayer {
     }
 
     public void enteringRoom() {
-        System.out.println("Entering room " + (Room.currentRoom) + " . . .");
-        System.out.println("A dragon has spawned. ");
-
+        while (currentRoom != 5) {
+            System.out.println("Entering room " + (currentRoom + 1) + " . . .");
+            System.out.println("A dragon has spawned. ");
+            while (!rooms[currentRoom].isRoomCleared()) {
+                currentDragon = rooms[currentRoom].getCurrentDragon();
+                showStats();
+                playerOption();
+                dragonTurn(currentDragon);
+            }
+            currentRoom++;
+        }
 
     }
 
-    public void playerOption(Room room) {
-        Dragon currentDragon =
+    public void playerOption() {
         boolean invalidAnswer = false;
         String option;
         do {
@@ -48,8 +61,9 @@ public class DragonSlayer {
             System.out.println("Do you want to: ");
             System.out.println("(1) Attack the dragon");
             System.out.println("(2) Use a health potion");
+            System.out.println("(3) Search the room");
             option = sc.nextLine();
-            if (!option.equals("1") && !option.equals("2")) {
+            if (!option.equals("1") && !option.equals("2") && !option.equals("3")) {
                 invalidAnswer = true;
                 System.out.println("Invalid input.");
             }
@@ -57,14 +71,22 @@ public class DragonSlayer {
 
 
         switch (option) {
-            // fix this shi
+            // fix this shi (maybe fixed)
             case "1":
-                player.attackDragon(rooms[Room.currentRoom - 1].getDragons()[rooms[Room.currentRoom -1 ].getDragonCount()]);
-                break;
+                    player.attackDragon(currentDragon);
+                    break;
             case "2":
                 player.usePot();
                 break;
+            case "3":
+                    if (rooms[currentRoom].searchRoom()) {
+                        player.receiveHealthPot();
+                    }
+                    break;
         }
+
+        // need to add a line of code. Dragon attacks even after killed, then the new room msg pops.
+
 
 
     }
@@ -87,6 +109,17 @@ public class DragonSlayer {
         }
 
     }
+
+    /*
+    public void nextDragonFight() {
+
+    }
+    */
+     public void showStats() {
+         currentDragon.dragonStatus();
+         System.out.println("----------");
+         player.playerStatus();
+     }
 
 
 }
