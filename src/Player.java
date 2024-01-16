@@ -78,4 +78,14 @@ public class Player {
     }
 
 
+    public void receiveDragonLoot(String loot) {
+        switch (loot) {
+            case "gold" -> gold += 50;
+            case "a sword upgrade" -> playerSword.upgradeSword();
+            case "a dodge rate upgrade" -> playerSword.upgradeDodgeRating();
+            case "health" -> health += 30;
+        }
+    }
+
+
 }

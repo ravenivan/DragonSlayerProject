@@ -33,6 +33,7 @@ public class DragonSlayer {
         System.out.print("What is your name, brave warrior? ");
         String name = sc.nextLine();
         player = new Player(name);
+        Dragon.setPlayer(player);
         System.out.println("How to beat this game: Clear all 5 rooms. Each room has a dragon that you must slay.");
         System.out.println("******************************");
     }
@@ -45,10 +46,13 @@ public class DragonSlayer {
                 currentDragon = rooms[currentRoom].getCurrentDragon();
                 showStats();
                 playerOption();
-                dragonTurn(currentDragon);
+                if (!rooms[currentRoom].isRoomCleared()) {
+                    dragonTurn(currentDragon);
+                }
             }
             currentRoom++;
         }
+        playerWinsGame();
 
     }
 
@@ -67,25 +71,26 @@ public class DragonSlayer {
                 invalidAnswer = true;
                 System.out.println("Invalid input.");
             }
+            System.out.println("******************************"); // maybe will have issue
         } while (invalidAnswer);
 
 
         switch (option) {
             // fix this shi (maybe fixed)
             case "1":
-                    player.attackDragon(currentDragon);
-                    break;
+                player.attackDragon(currentDragon);
+                break;
             case "2":
                 player.usePot();
                 break;
             case "3":
-                    if (rooms[currentRoom].searchRoom()) {
-                        player.receiveHealthPot();
-                    }
-                    break;
+                if (rooms[currentRoom].searchRoom()) {
+                    player.receiveHealthPot();
+                }
+                break;
         }
 
-        // need to add a line of code. Dragon attacks even after killed, then the new room msg pops.
+        // need to add a line of code. Dragon attacks even after killed, then the new room msg pops. (might be solved)
 
 
 
@@ -108,6 +113,12 @@ public class DragonSlayer {
             System.exit(0);
         }
 
+    }
+
+
+    public void playerWinsGame() {
+        System.out.println("Congratulations adventurer! You cleared all five rooms!");
+        System.out.println("YOU WIN!");
     }
 
     /*

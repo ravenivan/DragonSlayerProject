@@ -1,10 +1,12 @@
 public class Dragon {
 
-    public static final String[] lootPossibility = {"gold", "sword upgrade", "dodgerate upgrade", "gain health", "nothing"};
+    public static final String[] lootPossibility = {"gold", "a sword upgrade", "a dodge rate upgrade", "health", "nothing"};
 
     public static int strongerDragonChance = 0;
 
     public static int levelThreeDragonChance = 0;
+
+    public static Player player;
     private int level;
     private int health;
 
@@ -20,6 +22,10 @@ public class Dragon {
         slain = false;
         assignLevel();
         dragonRoom = room;
+    }
+
+    public static void setPlayer(Player p) {
+        player = p;
     }
 
     public boolean isSlain() {
@@ -53,6 +59,7 @@ public class Dragon {
         if (health <= 0) {
             slain = true;
             System.out.println("This dragon has been killed.");
+            player.receiveDragonLoot(dropLoot());
             dragonRoom.nextDragon();
         }
     }
@@ -65,6 +72,12 @@ public class Dragon {
     public void dragonStatus() {
         System.out.println("Dragon health: " + health);
         System.out.println("Dragon level: " + level);
+    }
+
+    /* Drops dragon loot after slain */
+    public String dropLoot() {
+        System.out.println("The dragon drops: " + loot);
+        return loot;
     }
 
 }
