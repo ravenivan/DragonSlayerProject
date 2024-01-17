@@ -51,14 +51,15 @@ public class DragonSlayer {
                 }
             }
             currentRoom++;
+            Dragon.increaseStrongerDragonChance();
         }
         playerWinsGame();
 
     }
 
     public void playerOption() {
-        boolean invalidAnswer = false;
         String option;
+        boolean invalidAnswer = false;
         do {
             System.out.println("******************************");
             System.out.println("Your turn.");
@@ -66,10 +67,17 @@ public class DragonSlayer {
             System.out.println("(1) Attack the dragon");
             System.out.println("(2) Use a health potion");
             System.out.println("(3) Search the room");
+            System.out.println("(4) Main menu");
             option = sc.nextLine();
-            if (!option.equals("1") && !option.equals("2") && !option.equals("3")) {
+            if (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4")) {
                 invalidAnswer = true;
                 System.out.println("Invalid input.");
+            } else {
+                invalidAnswer = false;
+            }
+            if (option.equals("4")) {
+                mainMenu();
+                invalidAnswer = true;
             }
             System.out.println("******************************"); // maybe will have issue
         } while (invalidAnswer);
@@ -89,8 +97,6 @@ public class DragonSlayer {
                 }
                 break;
         }
-
-        // need to add a line of code. Dragon attacks even after killed, then the new room msg pops. (might be solved)
 
 
 
@@ -121,15 +127,39 @@ public class DragonSlayer {
         System.out.println("YOU WIN!");
     }
 
-    /*
-    public void nextDragonFight() {
-
-    }
-    */
      public void showStats() {
          currentDragon.dragonStatus();
          System.out.println("----------");
          player.playerStatus();
+     }
+
+     public void mainMenu() {
+         System.out.println("******************************");
+         System.out.println("Main menu: ");
+         boolean invalidAnswer = false;
+         String option;
+         do {
+             System.out.println("(1) Return to game");
+             System.out.println("(2) Start new game");
+             System.out.println("(3) View top score");
+             option = sc.nextLine();
+             if (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4")) {
+                 invalidAnswer = true;
+                 System.out.println("Invalid input.");
+             }
+         } while (invalidAnswer);
+
+         switch (option) {
+             case "1":
+                 System.out.println("Returning to game...");
+                 break;
+             case "2":
+                 System.out.println("New game not added yet.");
+                 break;
+             case "3":
+                 System.out.println("Top score not added yet.");
+                 break;
+         }
      }
 
 

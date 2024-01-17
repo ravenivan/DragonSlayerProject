@@ -77,6 +77,7 @@ public class Dragon {
     /* Drops dragon loot after slain */
     public String dropLoot() {
         System.out.println("The dragon drops: " + loot);
+        System.out.println("******************************");
         return loot;
     }
 
