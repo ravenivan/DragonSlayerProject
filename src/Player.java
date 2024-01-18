@@ -1,4 +1,9 @@
 public class Player {
+
+    /* Tracker variable */
+    private static int highestScore = 0;
+
+    /* Instance variables */
     private Sword playerSword;
     private int health;
     private int gold;
@@ -6,6 +11,8 @@ public class Player {
     private String name;
 
     private boolean dead;
+
+    private int score;
 
 
     public Player(String name) {
@@ -15,10 +22,41 @@ public class Player {
         gold = 0;
         this.name = name;
         dead = false;
+        score = 10000;
     }
 
+    /* Getter methods */
     public boolean isDead() {
         return dead;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public static int getHighestScore() {
+        return highestScore;
+    }
+
+    public void addGoldToScore() {
+        score += (gold * 10); // 1 gold = 10 extra points
+    }
+
+    public void addRemainingHealthToScore() {
+        score += (health * 20); // 1 health = 20 extra points;
+    }
+
+    public void setHighestScore() {
+        if (score > highestScore) {
+            highestScore = score;
+        }
+    }
+
+    public void calculatingScore() {
+        System.out.println("Calculating score...");
+        System.out.println("Score from attacks: " + score);
+        System.out.println("Score from gold: " + gold + " x 10 -> " + (gold * 10));
+        System.out.println("Score from remaining health: " + health + " x 20 ->" + (health * 20));
     }
 
     public int damageAmount() {
@@ -39,6 +77,7 @@ public class Player {
         int damageToDragon = damageAmount();
         System.out.println("You attack the dragon for " + damageToDragon + " damage!");
         dragon.damageTaken(damageToDragon);
+        score -= 100; // Every attack takes away points. The least attacks you end the game with, the more points you have.
     }
 
     public void dragonAttack(int damageFromDragon) {
@@ -75,6 +114,7 @@ public class Player {
         System.out.println("Has health pot: " + healthPot);
         System.out.println("Your sword's attack power: " + playerSword.getAttackPower());
         System.out.println("Your sword's dodge rating: " + playerSword.getDodgeRating());
+        System.out.println("Your gold: " + gold);
     }
 
 

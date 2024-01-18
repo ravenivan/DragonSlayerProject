@@ -11,21 +11,20 @@ public class DragonSlayer {
 
     private Dragon currentDragon;
 
+    private boolean playAgain;
+
 
     public DragonSlayer() {
         sc = new Scanner(System.in);
         rooms = new Room[5];
-        for (int i = 0; i < rooms.length; i++) {
-            Room newRoom = new Room();
-            rooms[i] = newRoom;
-        }
-        currentRoom = 0;
-        currentDragon = rooms[currentRoom].getCurrentDragon(); // returns current dragon fighting
+        playAgain = true;
     }
 
     public void play() {
-        welcomePlayer();
-        enteringRoom();
+        while (playAgain) {
+            welcomePlayer();
+            enteringRoom();
+        }
     }
 
     public void welcomePlayer() {
@@ -33,6 +32,12 @@ public class DragonSlayer {
         System.out.print("What is your name, brave warrior? ");
         String name = sc.nextLine();
         player = new Player(name);
+        for (int i = 0; i < rooms.length; i++) {
+            Room newRoom = new Room();
+            rooms[i] = newRoom;
+        }
+        currentRoom = 0;
+        currentDragon = rooms[currentRoom].getCurrentDragon();
         Dragon.setPlayer(player);
         System.out.println("How to beat this game: Clear all 5 rooms. Each room has a dragon that you must slay.");
         System.out.println("******************************");
@@ -125,6 +130,13 @@ public class DragonSlayer {
     public void playerWinsGame() {
         System.out.println("Congratulations adventurer! You cleared all five rooms!");
         System.out.println("YOU WIN!");
+        player.calculatingScore();
+        player.addGoldToScore();
+        player.addRemainingHealthToScore();
+        player.setHighestScore();
+        System.out.println("Your total score: " + player.getScore());
+        System.out.println("Highest score: " + Player.getHighestScore());
+        playAgain();
     }
 
      public void showStats() {
@@ -160,6 +172,24 @@ public class DragonSlayer {
                  System.out.println("Top score not added yet.");
                  break;
          }
+     }
+
+     public void playAgain() {
+        boolean invalidInput;
+         do {
+             invalidInput = false;
+             System.out.println("Would you like to play again? (y/n)");
+             String play = sc.nextLine();
+             if (play.equals("y")) {
+                 playAgain = true;
+             } else if (play.equals("n")) {
+                 System.out.println("Thank you for playing!");
+             } else {
+                 invalidInput = true;
+                 System.out.println("Invalid input.");
+             }
+         } while (invalidInput);
+
      }
 
 
