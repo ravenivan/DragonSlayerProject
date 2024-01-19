@@ -69,6 +69,11 @@ public class Dragon {
         levelThreeDragonChance += 15;
     }
 
+    public static void resetStrongerDragonChance() {
+        strongerDragonChance = 0;
+        levelThreeDragonChance = 0;
+    }
+
     public void dragonStatus() {
         System.out.println("Dragon health: " + health);
         System.out.println("Dragon level: " + level);

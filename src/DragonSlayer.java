@@ -32,11 +32,9 @@ public class DragonSlayer {
         System.out.print("What is your name, brave warrior? ");
         String name = sc.nextLine();
         player = new Player(name);
-        for (int i = 0; i < rooms.length; i++) {
-            Room newRoom = new Room();
-            rooms[i] = newRoom;
-        }
         currentRoom = 0;
+        Dragon.resetStrongerDragonChance();
+        rooms[currentRoom] = new Room();
         currentDragon = rooms[currentRoom].getCurrentDragon();
         Dragon.setPlayer(player);
         System.out.println("How to beat this game: Clear all 5 rooms. Each room has a dragon that you must slay.");
@@ -57,6 +55,9 @@ public class DragonSlayer {
             }
             currentRoom++;
             Dragon.increaseStrongerDragonChance();
+            if (currentRoom != 5) {
+                rooms[currentRoom] = new Room();
+            }
         }
         playerWinsGame();
 
@@ -89,7 +90,6 @@ public class DragonSlayer {
 
 
         switch (option) {
-            // fix this shi (maybe fixed)
             case "1":
                 player.attackDragon(currentDragon);
                 break;
@@ -135,7 +135,7 @@ public class DragonSlayer {
         player.addRemainingHealthToScore();
         player.setHighestScore();
         System.out.println("Your total score: " + player.getScore());
-        System.out.println("Highest score: " + Player.getHighestScore());
+        System.out.println("Top score: " + Player.getHighestScore());
         playAgain();
     }
 
@@ -154,6 +154,7 @@ public class DragonSlayer {
              System.out.println("(1) Return to game");
              System.out.println("(2) Start new game");
              System.out.println("(3) View top score");
+             System.out.println("(4) Exit game");
              option = sc.nextLine();
              if (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4")) {
                  invalidAnswer = true;
@@ -162,15 +163,16 @@ public class DragonSlayer {
          } while (invalidAnswer);
 
          switch (option) {
-             case "1":
-                 System.out.println("Returning to game...");
-                 break;
-             case "2":
-                 System.out.println("New game not added yet.");
-                 break;
-             case "3":
-                 System.out.println("Top score not added yet.");
-                 break;
+             case "1" -> System.out.println("Returning to game...");
+             case "2" -> {
+                 System.out.println("Resetting game...");
+                 play();
+             }
+             case "3" -> System.out.println("Top score: " + Player.getHighestScore());
+             case "4" -> {
+                 System.out.println("Thanks for playing!");
+                 System.exit(0);
+             }
          }
      }
 
@@ -184,6 +186,7 @@ public class DragonSlayer {
                  playAgain = true;
              } else if (play.equals("n")) {
                  System.out.println("Thank you for playing!");
+                 playAgain = false;
              } else {
                  invalidInput = true;
                  System.out.println("Invalid input.");
