@@ -34,6 +34,8 @@ public class Player {
         return score;
     }
 
+    public String getName() {return name;}
+
     public static int getHighestScore() {
         return highestScore;
     }

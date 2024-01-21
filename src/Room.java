@@ -1,6 +1,6 @@
 public class Room {
 
-
+    public static String[] roomNames = {"Dragon's Lair", "Roaring Abyss", "Fireforge Fathom", "Volcanic Bastion", "Dragon's Hoard Haven"};
     private Dragon[] dragons;
     private boolean searched;
     private boolean hasHealthPot;
@@ -54,25 +54,11 @@ public class Room {
         }
     }
 
-    /*
-    public Dragon getCurrentDragon() {
-        if (!dragons[0].isSlain()) {
-            return dragons[0];
-        } else if (!dragons[1].isSlain()) {
-            return dragons[1];
-        } else {
-            return dragons[2];
-        }
-    }
-     */
 
     public Dragon getCurrentDragon() {
         return dragons[dragonCount];
     }
 
-    public int getDragonCount() {
-        return dragonCount;
-    }
 
 
 }

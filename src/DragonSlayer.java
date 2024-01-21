@@ -43,7 +43,7 @@ public class DragonSlayer {
 
     public void enteringRoom() {
         while (currentRoom != 5) {
-            System.out.println("Entering room " + (currentRoom + 1) + " . . .");
+            System.out.println("Entering room " + (currentRoom + 1) + ". The " + Room.roomNames[currentRoom] + ". . .");
             System.out.println("A dragon has spawned. ");
             while (!rooms[currentRoom].isRoomCleared()) {
                 currentDragon = rooms[currentRoom].getCurrentDragon();
@@ -65,7 +65,7 @@ public class DragonSlayer {
 
     public void playerOption() {
         String option;
-        boolean invalidAnswer = false;
+        boolean invalidAnswer;
         do {
             System.out.println("******************************");
             System.out.println("Your turn.");
@@ -121,7 +121,7 @@ public class DragonSlayer {
 
         if (player.isDead()) {
             System.out.println("Game over. You died.");
-            System.exit(0);
+            playAgain();
         }
 
     }
@@ -135,7 +135,7 @@ public class DragonSlayer {
         player.addRemainingHealthToScore();
         player.setHighestScore();
         System.out.println("Your total score: " + player.getScore());
-        System.out.println("Top score: " + Player.getHighestScore());
+        System.out.println("Top score: " + Player.getHighestScore() + " (" + player.getName() + ")");
         playAgain();
     }
 
@@ -187,13 +187,13 @@ public class DragonSlayer {
              } else if (play.equals("n")) {
                  System.out.println("Thank you for playing!");
                  playAgain = false;
+                 System.exit(0);
              } else {
                  invalidInput = true;
                  System.out.println("Invalid input.");
              }
          } while (invalidInput);
-
+         play();
      }
-
 
 }
