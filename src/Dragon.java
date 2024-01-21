@@ -28,10 +28,6 @@ public class Dragon {
         player = p;
     }
 
-    public boolean isSlain() {
-        return slain;
-    }
-
     public void assignLevel() {
         boolean strongDragon = ((int) (Math.random() * 100) + 1) <= strongerDragonChance;
         boolean levelThree = ((int) (Math.random() * 100) + 1) <= levelThreeDragonChance;
@@ -64,16 +60,6 @@ public class Dragon {
         }
     }
 
-    public static void increaseStrongerDragonChance() {
-        strongerDragonChance += 20;
-        levelThreeDragonChance += 15;
-    }
-
-    public static void resetStrongerDragonChance() {
-        strongerDragonChance = 0;
-        levelThreeDragonChance = 0;
-    }
-
     public void dragonStatus() {
         System.out.println("Dragon health: " + ConsoleUtility.RED + health + ConsoleUtility.RESET);
         System.out.println("Dragon level: " + ConsoleUtility.PURPLE + level + ConsoleUtility.RESET);
@@ -84,6 +70,17 @@ public class Dragon {
         System.out.println("The dragon drops: " + loot);
         System.out.println("******************************");
         return loot;
+    }
+
+    /* Public static methods */
+    public static void increaseStrongerDragonChance() {
+        strongerDragonChance += 20;
+        levelThreeDragonChance += 15;
+    }
+
+    public static void resetStrongerDragonChance() {
+        strongerDragonChance = 0;
+        levelThreeDragonChance = 0;
     }
 
 }
