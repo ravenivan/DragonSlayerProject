@@ -2,15 +2,11 @@ import java.util.Scanner;
 
 public class DragonSlayer {
 
-
-    private Scanner sc;
+    private final Scanner sc;
     private Player player;
     private Room[] rooms;
-
     private int currentRoom;
-
     private Dragon currentDragon;
-
     private boolean playAgain;
 
 
@@ -43,7 +39,7 @@ public class DragonSlayer {
 
     public void enteringRoom() {
         while (currentRoom != 5) {
-            System.out.println("Entering room " + (currentRoom + 1) + ". The " + Room.roomNames[currentRoom] + ". . .");
+            System.out.println("Entering room " + (currentRoom + 1) + "." + ConsoleUtility.RED + " The " + Room.roomNames[currentRoom] + ". . ." + ConsoleUtility.RESET);
             System.out.println("A dragon has spawned. ");
             while (!rooms[currentRoom].isRoomCleared()) {
                 currentDragon = rooms[currentRoom].getCurrentDragon();
@@ -68,11 +64,11 @@ public class DragonSlayer {
         boolean invalidAnswer;
         do {
             System.out.println("******************************");
-            System.out.println("Your turn.");
+            System.out.println(ConsoleUtility.BLACK + "Your turn." + ConsoleUtility.RESET);
             System.out.println("Do you want to: ");
-            System.out.println("(1) Attack the dragon");
-            System.out.println("(2) Use a health potion");
-            System.out.println("(3) Search the room");
+            System.out.println("(1) " + ConsoleUtility.RED + "Attack the dragon" + ConsoleUtility.RESET);
+            System.out.println("(2) " + ConsoleUtility.GREEN + "Use a health potion" + ConsoleUtility.RESET);
+            System.out.println("(3) " + ConsoleUtility.YELLOW +"Search the room" + ConsoleUtility.RESET);
             System.out.println("(4) Main menu");
             option = sc.nextLine();
             if (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4")) {
@@ -134,8 +130,8 @@ public class DragonSlayer {
         player.addGoldToScore();
         player.addRemainingHealthToScore();
         player.setHighestScore();
-        System.out.println("Your total score: " + player.getScore());
-        System.out.println("Top score: " + Player.getHighestScore() + " (" + player.getName() + ")");
+        System.out.println("Your total score: " + ConsoleUtility.PURPLE + player.getScore() + ConsoleUtility.RESET);
+        System.out.println("Top score: " + ConsoleUtility.CYAN + Player.getHighestScore() + ConsoleUtility.RESET + " (" + player.getName() + ")");
         playAgain();
     }
 
@@ -168,7 +164,7 @@ public class DragonSlayer {
                  System.out.println("Resetting game...");
                  play();
              }
-             case "3" -> System.out.println("Top score: " + Player.getHighestScore());
+             case "3" -> System.out.println("Top score: " + ConsoleUtility.CYAN + Player.getHighestScore() + ConsoleUtility.RESET + " (" + player.getName() + ")");
              case "4" -> {
                  System.out.println("Thanks for playing!");
                  System.exit(0);

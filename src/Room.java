@@ -1,13 +1,13 @@
 public class Room {
 
     public static String[] roomNames = {"Dragon's Lair", "Roaring Abyss", "Fireforge Fathom", "Volcanic Bastion", "Dragon's Hoard Haven"};
-    private Dragon[] dragons;
-    private boolean searched;
-    private boolean hasHealthPot;
+    private final Dragon[] dragons; // array of dragons in this room
+    private final boolean hasHealthPot; // checks if room has a health pot to be searched
+    private boolean searched; // checks if room treasure has been searched
 
-    private boolean roomCleared;
+    private boolean roomCleared; // checks if room has been cleared
 
-    private int dragonCount;
+    private int dragonCount; // keeps track of which dragon the player is fighting this room (0-2)
 
     public Room() {
         searched = false;
@@ -21,14 +21,16 @@ public class Room {
         dragonCount = 0;
     }
 
-    public Dragon[] getDragons() {
-        return dragons;
-    }
-
+    /* Getter methods */
     public boolean isRoomCleared() {
         return roomCleared;
     }
 
+    public Dragon getCurrentDragon() {
+        return dragons[dragonCount];
+    }
+
+    /* Moves onto the next dragon in the room after current dragon is killed. If all dragons in the room are killed, the room is cleared. */
     public void nextDragon() {
         dragonCount++;
         if (dragonCount == 3) {
@@ -38,6 +40,7 @@ public class Room {
         }
     }
 
+    /* Searches room */
     public boolean searchRoom() {
         if (!searched) {
             searched = true;
@@ -53,12 +56,4 @@ public class Room {
             return false;
         }
     }
-
-
-    public Dragon getCurrentDragon() {
-        return dragons[dragonCount];
-    }
-
-
-
 }

@@ -1,19 +1,16 @@
 public class Player {
 
     /* Tracker variable */
-    private static int highestScore = 0;
+    private static int highestScore = 0; // tracks the high score among players
 
     /* Instance variables */
-    private Sword playerSword;
+    private final Sword playerSword;
+    private final String name;
     private int health;
     private int gold;
     private boolean healthPot;
-    private String name;
-
     private boolean dead;
-
     private int score;
-
 
     public Player(String name) {
         health = 100;
@@ -40,6 +37,7 @@ public class Player {
         return highestScore;
     }
 
+    /* Setter methods */
     public void addGoldToScore() {
         score += (gold * 10); // 1 gold = 10 extra points
     }
@@ -54,13 +52,7 @@ public class Player {
         }
     }
 
-    public void calculatingScore() {
-        System.out.println("Calculating score...");
-        System.out.println("Score from attacks: " + score);
-        System.out.println("Score from gold: " + gold + " x 10 -> " + (gold * 10));
-        System.out.println("Score from remaining health: " + health + " x 20 ->" + (health * 20));
-    }
-
+    /* Other instance methods */
     public int damageAmount() {
         int oneToThree = ((int) (Math.random() * 3) + 1);
         return oneToThree * playerSword.getAttackPower();
@@ -90,7 +82,23 @@ public class Player {
         return ((int) (Math.random() * 100) + 1) <= playerSword.getDodgeRating();
     }
 
-    public boolean usePot() {
+    public void checkDead() {
+        if (health <= 0) {
+            dead = true;
+        }
+    }
+
+    /* Prints player status */
+    public void playerStatus() {
+        System.out.println("Your health: " + ConsoleUtility.GREEN + health + ConsoleUtility.RESET);
+        System.out.println("Has health pot: " + healthPot);
+        System.out.println("Your sword's attack power: " + ConsoleUtility.GREEN + playerSword.getAttackPower() + ConsoleUtility.RESET);
+        System.out.println("Your sword's dodge rating: " + ConsoleUtility.GREEN + playerSword.getDodgeRating() + ConsoleUtility.RESET);
+        System.out.println("Your gold: " + ConsoleUtility.YELLOW + gold + ConsoleUtility.RESET);
+    }
+
+    /* Player uses potion */
+    public void usePot() {
         if (healthPot) {
             health += 50;
             if (health > 100) {
@@ -98,28 +106,12 @@ public class Player {
             }
             healthPot = false;
             System.out.println("You used the health pot!");
-            return true;
         } else {
             System.out.println("You have no health pot to use.");
-            return false;
         }
     }
 
-    public void checkDead() {
-        if (health <= 0) {
-            dead = true;
-        }
-    }
-
-    public void playerStatus() {
-        System.out.println("Your health: " + health);
-        System.out.println("Has health pot: " + healthPot);
-        System.out.println("Your sword's attack power: " + playerSword.getAttackPower());
-        System.out.println("Your sword's dodge rating: " + playerSword.getDodgeRating());
-        System.out.println("Your gold: " + gold);
-    }
-
-
+    /* Player receives dragonLoot, does nothing if dragon drops nothing */
     public void receiveDragonLoot(String loot) {
         switch (loot) {
             case "gold" -> gold += 50;
@@ -129,5 +121,11 @@ public class Player {
         }
     }
 
-
+    /* Calculates player score at the end of the game if player wins */
+    public void calculatingScore() {
+        System.out.println("Calculating score...");
+        System.out.println("Score from attacks: " + score);
+        System.out.println("Score from gold: " + gold + " x 10 -> " + (gold * 10));
+        System.out.println("Score from remaining health: " + health + " x 20 ->" + (health * 20));
+    }
 }

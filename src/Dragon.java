@@ -75,8 +75,8 @@ public class Dragon {
     }
 
     public void dragonStatus() {
-        System.out.println("Dragon health: " + health);
-        System.out.println("Dragon level: " + level);
+        System.out.println("Dragon health: " + ConsoleUtility.RED + health + ConsoleUtility.RESET);
+        System.out.println("Dragon level: " + ConsoleUtility.PURPLE + level + ConsoleUtility.RESET);
     }
 
     /* Drops dragon loot after slain */
